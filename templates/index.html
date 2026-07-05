@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFRYA — Oversized Comfort, Chrome Attitude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- floating pastel blobs -->
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+
+  <header class="nav">
+    <div class="nav-brand">{{ brand.name }}</div>
+    <nav class="nav-links">
+      <a href="#produk">Produk</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+    <a href="https://wa.me/{{ brand.whatsapp_number }}?text={{ brand.whatsapp_message | urlencode }}" class="nav-cta" target="_blank" rel="noopener">Chat WA</a>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">Drop 01 — Star Series</p>
+    <h1 class="chrome-title">{{ brand.name }}</h1>
+    <p class="hero-tagline">{{ brand.tagline }}</p>
+    <div class="hero-actions">
+      <a href="#produk" class="btn btn-dark">Lihat Produk</a>
+      <a href="https://instagram.com/{{ brand.instagram_username }}" class="btn btn-ghost" target="_blank" rel="noopener">@{{ brand.instagram_username }}</a>
+    </div>
+    <img class="hero-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo chrome EFRYA">
+  </section>
+
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>OVERSIZED FIT</span><span>★</span><span>DROP SHOULDER</span><span>★</span>
+      <span>CHROME LOGO</span><span>★</span><span>LIMITED STOCK</span><span>★</span>
+      <span>OVERSIZED FIT</span><span>★</span><span>DROP SHOULDER</span><span>★</span>
+      <span>CHROME LOGO</span><span>★</span><span>LIMITED STOCK</span><span>★</span>
+    </div>
+  </section>
+
+  <section id="produk" class="products">
+    <div class="section-head">
+      <p class="eyebrow">Koleksi</p>
+      <h2>Star Tee</h2>
+      <p class="section-desc">Satu potongan, dua sisi cerita — detail piping dan grafis bintang pecah yang jadi tanda tangan {{ brand.name }}.</p>
+    </div>
+
+    <div class="product-grid">
+      {% for p in products %}
+      <article class="product-card">
+        <div class="product-media">
+          <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.name }} {{ p.view }}">
+          <span class="tag">{{ p.view }}</span>
+        </div>
+        <div class="product-info">
+          <h3>{{ p.name }}</h3>
+          <p>{{ p.desc }}</p>
+          <div class="product-foot">
+            <span class="price">{{ p.price }}</span>
+            <a href="https://wa.me/{{ brand.whatsapp_number }}?text={{ ('Halo EFRYA, saya mau tanya soal ' ~ p.name ~ ' (' ~ p.view ~ ').') | urlencode }}" target="_blank" rel="noopener">Tanya via WA →</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="kontak" class="contact">
+    <div class="contact-card">
+      <p class="eyebrow">Terhubung dengan kami</p>
+      <h2>Ngobrol soal drop berikutnya?</h2>
+      <p class="section-desc">Order, tanya ukuran, atau cek ready stock langsung lewat Instagram atau WhatsApp.</p>
+      <div class="contact-buttons">
+        <a class="contact-btn ig" href="https://instagram.com/{{ brand.instagram_username }}" target="_blank" rel="noopener">
+          <span class="icon">◎</span>
+          <span>
+            <strong>Instagram</strong>
+            <small>@{{ brand.instagram_username }}</small>
+          </span>
+        </a>
+        <a class="contact-btn wa" href="https://wa.me/{{ brand.whatsapp_number }}?text={{ brand.whatsapp_message | urlencode }}" target="_blank" rel="noopener">
+          <span class="icon">☎</span>
+          <span>
+            <strong>WhatsApp</strong>
+            <small>+{{ brand.whatsapp_number }}</small>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>{{ brand.name }}</span>
+    <span>© 2026 — All rights reserved</span>
+  </footer>
+
+</body>
+</html>
